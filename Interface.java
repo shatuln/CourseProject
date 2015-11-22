@@ -3,9 +3,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import static javax.swing.GroupLayout.Alignment.*;
 
-public class Interface extends JFrame implements ActionListener {
-    public JTextField textField;
-    public JTextArea textArea;
+public class Interface extends JFrame {
+    public static JLabel ipLabel;
+    public JLabel label;
+    public static JTextField textField;
+    public static JTextArea textArea;
     public JButton button;
     public JScrollPane scrollPane;
     public static JTextField ipField;
@@ -18,8 +20,11 @@ public class Interface extends JFrame implements ActionListener {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        label = new JLabel("Connect to ip");
+        ipLabel = new JLabel("Disconnected");
+
         textField = new JTextField(5);
-        textField.addActionListener(this);
+        textField.addActionListener(new TextAction());
 
         ipField = new JTextField(5);
 
@@ -32,7 +37,7 @@ public class Interface extends JFrame implements ActionListener {
         textArea.setWrapStyleWord(true);
 
         button = new JButton("Send");
-        button.addActionListener(this);
+        button.addActionListener(new TextAction());
 
         scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -46,8 +51,10 @@ public class Interface extends JFrame implements ActionListener {
                                         .addComponent(textField)
                                         .addComponent(button)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(label)
                                 .addComponent(ipField, 100, 100, 100)
-                                .addComponent(ipButton))
+                                .addComponent(ipButton)
+                                .addComponent(ipLabel))
 
         );
 
@@ -55,8 +62,10 @@ public class Interface extends JFrame implements ActionListener {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(scrollPane)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(ipField, 20, 20, 20)
-                                    .addComponent(ipButton)))
+                                        .addComponent(label)
+                                        .addComponent(ipField, 20, 20, 20)
+                                        .addComponent(ipButton)
+                                        .addComponent(ipLabel)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(textField)
                                 .addComponent(button))
@@ -67,16 +76,6 @@ public class Interface extends JFrame implements ActionListener {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }
-
-    public void actionPerformed(ActionEvent evt) {
-        String text = textField.getText();
-        textArea.append(text + newline);
-        textField.setText("");
-
-        //Make sure the new text is visible, even if there
-        //was a selection in the text area.
-//        textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
 
