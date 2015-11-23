@@ -8,6 +8,9 @@ public class ConnectionAction extends AbstractAction{
         Interface.ipLabel.setText("Connected");
 //        Interface.textArea.setText(TextFile.read());
         TextFile.update("//Connected to " + ip);
+        Interface.ipButton.setText("Disconnect");
+        Interface.ipButton.removeActionListener(this);
+        Interface.ipButton.addActionListener(new DisconnectionAction());
     }
 
 }

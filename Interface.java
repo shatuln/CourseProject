@@ -11,8 +11,7 @@ public class Interface extends JFrame {
     public JButton button;
     public JScrollPane scrollPane;
     public static JTextField ipField;
-    public JButton ipButton;
-    private final static String newline = "\n";
+    public static JButton ipButton;
 
     public Interface() {
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -103,9 +102,10 @@ public class Interface extends JFrame {
         );
 
 
-        setTitle("yo");
+        setTitle("P2P chat");
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
     }
 
