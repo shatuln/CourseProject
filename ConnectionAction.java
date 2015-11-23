@@ -6,7 +6,8 @@ public class ConnectionAction extends AbstractAction{
         String ip = Interface.ipField.getText();
         System.out.println(ip);
         Interface.ipLabel.setText("Connected");
-
+//        Interface.textArea.setText(TextFile.read());
+        TextFile.update("//Connected to " + ip);
     }
 
 }
