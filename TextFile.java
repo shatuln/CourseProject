@@ -2,7 +2,7 @@ import java.io.*;
 
 public class TextFile {
     private static String fileName = "text.txt";
-    static File file = new File(fileName);
+    public static File file = new File(fileName);
 
     public static void update(String newText) {
         exists();
