@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+
 import static javax.swing.GroupLayout.Alignment.*;
 
 public class Interface extends JFrame {
@@ -8,10 +11,16 @@ public class Interface extends JFrame {
     public JLabel label;
     public static JTextField textField;
     public static JTextArea textArea;
-    public JButton button;
+    public static JButton button;
     public JScrollPane scrollPane;
     public static JTextField ipField;
     public static JButton ipButton;
+    public static JButton historyButton;
+    public static JLabel status;
+    public static Highlighter hilit;
+    public static Highlighter.HighlightPainter painter;
+
+    public static ActionListener buttonListener, textListener;
 
     public Interface() {
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -19,24 +28,33 @@ public class Interface extends JFrame {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        status = new JLabel("Connect to somebody");
+
+        hilit = new DefaultHighlighter();
+        painter = new DefaultHighlighter.DefaultHighlightPainter(Color.LIGHT_GRAY);
+
         label = new JLabel("Connect to ip");
         ipLabel = new JLabel("Disconnected");
 
         textField = new JTextField(5);
-        textField.addActionListener(new TextAction());
+        textField.addActionListener(textListener = new TextAction());
 
         ipField = new JTextField(5);
 
         ipButton = new JButton("Connect");
         ipButton.addActionListener(new ConnectionAction());
 
+        historyButton = new JButton("History");
+        historyButton.addActionListener(new historyButAction());
+
         textArea = new JTextArea(20, 30);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        textArea.setHighlighter(hilit);
 
         button = new JButton("Send");
-        button.addActionListener(new TextAction());
+        button.addActionListener(textListener);
 
         this.addWindowListener(new WindowListener() {
             @Override
@@ -79,12 +97,14 @@ public class Interface extends JFrame {
                                         .addComponent(scrollPane))
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(textField)
-                                        .addComponent(button)))
+                                        .addComponent(button))
+                                .addComponent(status))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(label)
                                 .addComponent(ipField, 100, 100, 100)
                                 .addComponent(ipButton)
-                                .addComponent(ipLabel))
+                                .addComponent(ipLabel)
+                                .addComponent(historyButton))
 
         );
 
@@ -98,7 +118,9 @@ public class Interface extends JFrame {
                                         .addComponent(ipLabel)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(textField)
-                                .addComponent(button))
+                                .addComponent(button)
+                                .addComponent(historyButton))
+                        .addComponent(status)
         );
 
 
