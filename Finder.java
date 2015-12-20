@@ -31,13 +31,18 @@ public class Finder extends AbstractAction {
 
 
             int r = read();
-            int end = r + content.length();
-            try {
-                Interface.hilit.addHighlight(r, end, Interface.painter);
-            } catch (BadLocationException e) {
+            if (r != -1) {
+                int end = r + content.length();
+                try {
+                    Interface.hilit.addHighlight(r, end, Interface.painter);
+                } catch (BadLocationException e) {
+                }
+                Interface.textArea.setCaretPosition(end);
+                fullIndex = end;
+            } else {
+                fullIndex = 0;
             }
-            Interface.textArea.setCaretPosition(end);
-            fullIndex = end;
+
 
         }
     }
@@ -64,6 +69,7 @@ public class Finder extends AbstractAction {
                 } else {
                     allIndex = allIndex + len + 2;
                 }
+
             }
 
 

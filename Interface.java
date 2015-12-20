@@ -7,20 +7,25 @@ import javax.swing.text.Highlighter;
 import static javax.swing.GroupLayout.Alignment.*;
 
 public class Interface extends JFrame {
+    public static boolean clientFlag = false;
+
     public static JLabel ipLabel;
-    public JLabel label;
+    public JLabel label, label1;
     public static JTextField textField;
     public static JTextArea textArea;
     public static JButton button;
     public JScrollPane scrollPane;
-    public static JTextField ipField;
+    public static JTextField ipField, portField;
     public static JButton ipButton;
     public static JButton historyButton;
-    public static JLabel status;
+    public static JLabel status, connectionStatus, connectionStatus1;
     public static Highlighter hilit;
     public static Highlighter.HighlightPainter painter;
 
-    public static ActionListener buttonListener, textListener;
+    public static Client cli;
+    public static Server serv;
+
+    public static ActionListener connectListener, textListener;
 
     public Interface() {
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -28,21 +33,26 @@ public class Interface extends JFrame {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+
         status = new JLabel("Connect to somebody");
 
         hilit = new DefaultHighlighter();
         painter = new DefaultHighlighter.DefaultHighlightPainter(Color.LIGHT_GRAY);
 
         label = new JLabel("Connect to ip");
+        label1 = new JLabel("and port");
+        connectionStatus = new JLabel("");
+        connectionStatus1 = new JLabel("");
         ipLabel = new JLabel("Disconnected");
 
         textField = new JTextField(5);
         textField.addActionListener(textListener = new TextAction());
 
         ipField = new JTextField(5);
+        portField = new JTextField(5);
 
         ipButton = new JButton("Connect");
-        ipButton.addActionListener(new ConnectionAction());
+        ipButton.addActionListener(connectListener = new ConnectionAction());
 
         historyButton = new JButton("History");
         historyButton.addActionListener(new historyButAction());
@@ -55,6 +65,9 @@ public class Interface extends JFrame {
 
         button = new JButton("Send");
         button.addActionListener(textListener);
+
+        serv = new Server(4000);                        //server
+        serv.start();
 
         this.addWindowListener(new WindowListener() {
             @Override
@@ -102,9 +115,13 @@ public class Interface extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(label)
                                 .addComponent(ipField, 100, 100, 100)
+                                .addComponent(label1)
+                                .addComponent(portField, 100, 100, 100)
                                 .addComponent(ipButton)
                                 .addComponent(ipLabel)
-                                .addComponent(historyButton))
+                                .addComponent(historyButton)
+                                .addComponent(connectionStatus)
+                                .addComponent(connectionStatus1))
 
         );
 
@@ -114,13 +131,19 @@ public class Interface extends JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(label)
                                         .addComponent(ipField, 20, 20, 20)
+                                        .addComponent(label1)
+                                        .addComponent(portField, 20, 20, 20)
                                         .addComponent(ipButton)
                                         .addComponent(ipLabel)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(textField)
                                 .addComponent(button)
                                 .addComponent(historyButton))
-                        .addComponent(status)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(status)
+                                .addComponent(connectionStatus))
+                        .addComponent(connectionStatus1)
+
         );
 
 

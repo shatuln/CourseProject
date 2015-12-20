@@ -6,6 +6,7 @@ public class chatButAction extends AbstractAction{
 
     public void actionPerformed(ActionEvent ev) {
         Interface.textArea.setText("");
+        Interface.textField.setText("");
         Interface.historyButton.setText("History");
         Interface.button.setText("Send");
         Interface.status.setText("Connect to somebody");

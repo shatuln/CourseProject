@@ -7,6 +7,7 @@ public class historyButAction extends AbstractAction{
         Interface.textArea.setText(TextFile.read());
         Interface.historyButton.setText("Chat");
         Interface.button.setText("Find");
+        Interface.textField.setText("");
         Interface.status.setText("To search, type something and press the button");
 
         Interface.button.removeActionListener(Interface.textListener);
