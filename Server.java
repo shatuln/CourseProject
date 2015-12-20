@@ -4,15 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-class Server extends Thread
+public class Server extends Thread
 {
-    int num, port;
+    int port;
     ServerSocket server;
+    String ipadress;
+    private Socket s;
     boolean flag, connection;
-    String str, sadr, sport;
-    Reader r;
-    BufferedReader buf;
-    Socket s;
+    private String str, sadr, sport;
+    private Reader r;
+    private BufferedReader buf;
+
 
     Server(int p) {
         this.port = p;
@@ -27,7 +29,7 @@ class Server extends Thread
                 Interface.cli = new Client(sadr, sport);
                 Interface.cli.start();
                 try {Thread.sleep(100);} catch (Exception e) {}
-                Interface.cli.getMessage(server.getInetAddress().getLocalHost().getHostAddress());
+                Interface.cli.getMessage(ipadress);
             } else {
                 //socket = s.getInetAddress();
                 //sadr = socket.toString().substring(1);
@@ -35,11 +37,11 @@ class Server extends Thread
                 Interface.status.setText("You are with stranger from " + sadr);
             }
         } catch (Exception e) {}
-
     }
 
     public void run() {
         int i = 0;
+
 
 
         try {
@@ -57,6 +59,8 @@ class Server extends Thread
                     port = port + 1;
                 }
             }
+            ipadress = server.getInetAddress().getLocalHost().getHostAddress();
+            Interface.yourIp.setText("Your IP is " + ipadress);
             s = server.accept();
             r = new InputStreamReader(s.getInputStream());
             buf = new BufferedReader(r);

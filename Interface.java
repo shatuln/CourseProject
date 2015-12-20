@@ -4,8 +4,6 @@ import javax.swing.*;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 
-import static javax.swing.GroupLayout.Alignment.*;
-
 public class Interface extends JFrame {
     public static boolean clientFlag = false;
 
@@ -18,7 +16,7 @@ public class Interface extends JFrame {
     public static JTextField ipField, portField;
     public static JButton ipButton;
     public static JButton historyButton;
-    public static JLabel status, connectionStatus, connectionStatus1;
+    public static JLabel status, connectionStatus, connectionStatus1, yourIp;
     public static Highlighter hilit;
     public static Highlighter.HighlightPainter painter;
 
@@ -43,7 +41,10 @@ public class Interface extends JFrame {
         label1 = new JLabel("and port");
         connectionStatus = new JLabel("");
         connectionStatus1 = new JLabel("");
+        connectionStatus.setFont(new Font("Sans Serif", Font.ITALIC, 11));
+        connectionStatus1.setFont(new Font("Sans Serif", Font.ITALIC, 11));
         ipLabel = new JLabel("Disconnected");
+        ipLabel.setForeground(Color.red);
 
         textField = new JTextField(5);
         textField.addActionListener(textListener = new TextAction());
@@ -69,6 +70,9 @@ public class Interface extends JFrame {
         serv = new Server(4000);                        //server
         serv.start();
 
+        yourIp = new JLabel("");
+        yourIp.setFont(new Font("Sans Serif", Font.ITALIC, 12));
+
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -76,6 +80,9 @@ public class Interface extends JFrame {
             }
             public void windowClosing(WindowEvent event) {
                 TextFile.update("===============End of session==============");
+                if (clientFlag) {
+                    cli.getMessage("//disable");
+                }
                 System.exit(0);
             }
             @Override
@@ -111,7 +118,8 @@ public class Interface extends JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(textField)
                                         .addComponent(button))
-                                .addComponent(status))
+                                .addComponent(status)
+                                .addComponent(yourIp))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(label)
                                 .addComponent(ipField, 100, 100, 100)
@@ -142,7 +150,9 @@ public class Interface extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(status)
                                 .addComponent(connectionStatus))
-                        .addComponent(connectionStatus1)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(yourIp)
+                                .addComponent(connectionStatus1))
 
         );
 

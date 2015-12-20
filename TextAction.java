@@ -24,7 +24,8 @@ public class TextAction extends AbstractAction {
             TextFile.update(sb.toString());
             Interface.textField.setText("");
         } else {
-            Interface.textArea.append("No connection" + "\n");
+            //Interface.textArea.append("No connection" + "\n");
+            Interface.status.setText("No connection");
         }
 
 

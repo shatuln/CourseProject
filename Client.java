@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 
@@ -43,13 +44,18 @@ public class Client extends Thread
         try
         {
             try {
+                Interface.ipLabel.setForeground(Color.gray);
+                Interface.ipLabel.setText("Trying to connect");
                 s = new Socket(ipf, Integer.parseInt(pf));
+                Interface.ipLabel.setForeground(Color.green);
+                Interface.ipLabel.setText("Connected");
                 System.out.println(s);
                 TextAction.online = true;
                 flag = true;
             } catch (ConnectException e) {
                 DisconnectionAction.disconnection();
                 Interface.textArea.append("Unable to connect" + "\n");
+                Interface.status.setText("Unable to connect");
             }
 
             while (flag) {
@@ -59,6 +65,6 @@ public class Client extends Thread
 
         }
         catch(Exception e)
-        {System.out.println("init error: "+e);} // вывод исключений
+        {System.out.println("init error: " + e);}
     }
 }

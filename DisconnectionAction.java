@@ -1,9 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class DisconnectionAction extends AbstractAction {
 
     public static void disconnection() {
+        Interface.ipLabel.setForeground(Color.red);
         Interface.ipLabel.setText("Disconnected");
         Interface.ipButton.setText("Connect");
         //Interface.textArea.setText("");
@@ -24,6 +26,7 @@ public class DisconnectionAction extends AbstractAction {
         TextAction.online = false;
         Interface.serv.connection = false;
 
+        Interface.ipLabel.setForeground(Color.red);
         Interface.ipLabel.setText("Disconnected");
         Interface.ipButton.setText("Connect");
         //Interface.textArea.setText("");

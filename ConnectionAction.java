@@ -22,7 +22,6 @@ public class ConnectionAction extends AbstractAction{
 
 
     public static void connection() {
-        Interface.ipLabel.setText("Connected");
         Interface.ipButton.setText("Disconnect");
         Interface.textArea.setText("");
 
@@ -45,7 +44,8 @@ public class ConnectionAction extends AbstractAction{
             System.out.println(ip);
             connection();
         } else {
-            Interface.textArea.append("IP is not valid" + "\n");
+            //Interface.textArea.append("IP is not valid" + "\n");
+            Interface.status.setText("IP is not valid");
         }
 
     }
